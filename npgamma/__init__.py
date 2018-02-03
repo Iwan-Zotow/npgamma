@@ -28,9 +28,8 @@ from scipy.interpolate import RegularGridInterpolator
 from multiprocessing import Process, Queue
 
 
-def _run_input_checks(
-        coords_reference, dose_reference,
-        coords_evaluation, dose_evaluation):
+def _run_input_checks(coords_reference, dose_reference,
+                      coords_evaluation, dose_evaluation):
     """Check user inputs."""
     if (
             not isinstance(coords_evaluation, tuple) or
@@ -103,8 +102,7 @@ def _calculate_coordinates_kernel(
         return (x_coords, y_coords)
 
     elif num_dimensions == 3:
-        number_of_rows = np.floor(
-            np.pi * distance / distance_step_size) + 2
+        number_of_rows = np.floor(np.pi * distance / distance_step_size) + 2
         elevation = np.linspace(0, np.pi, number_of_rows)
         row_radii = distance * np.sin(elevation)
         row_circumference = 2 * np.pi * row_radii
@@ -120,8 +118,7 @@ def _calculate_coordinates_kernel(
             y_coords.append(distance * np.sin(phi) * np.sin(azimuth))
             z_coords.append(distance * np.cos(phi) * np.ones_like(azimuth))
 
-        return (
-            np.hstack(x_coords), np.hstack(y_coords), np.hstack(z_coords))
+        return (np.hstack(x_coords), np.hstack(y_coords), np.hstack(z_coords))
 
     else:
         raise Exception("No valid dimension")
