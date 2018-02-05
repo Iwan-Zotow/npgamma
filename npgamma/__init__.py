@@ -276,7 +276,7 @@ def calc_gamma(coords_reference, dose_reference,
         distance_step_size = distance_threshold / 10
 
     reference_interpolation = RegularGridInterpolator(
-        coords_reference, np.array(dose_reference),
+        coords_reference, np.array(dose_reference), method='linear',
         bounds_error=False, fill_value=np.inf
     )
 
