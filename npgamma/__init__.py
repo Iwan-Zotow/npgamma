@@ -322,7 +322,7 @@ def calc_gamma(coords_reference, dose_reference,
 
     gamma_flat = np.nan * np.ones_like(dose_evaluation_flat)
 
-    for i in range(num_threads):
+    for _ in range(num_threads):
         result = output.get()
         thread_reference = np.invert(np.isnan(result))
         gamma_flat[thread_reference] = result[thread_reference]
